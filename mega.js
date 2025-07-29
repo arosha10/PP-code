@@ -92,7 +92,7 @@ function createStorage() {
     }
 
     // Try to use cached session first
-    if (sessionCache && !loadCachedSession()) {
+    if (loadCachedSession()) {
       console.log('Using cached session');
       const storage = new mega.Storage({
         ...auth,

@@ -36,20 +36,16 @@ router.get("/", async (req, res) => {
         browser: Browsers.macOS("Safari"),
       });
 
-      if (!RobinPairWeb.authState.creds.registered) {
-        await delay(1500);
-        num = num.replace(/[^0-9]/g, "");
-        const code = await RobinPairWeb.requestPairingCode(num);
-        if (!res.headersSent) {
-          await res.send({ code });
-        }
-      }
-
       RobinPairWeb.ev.on("creds.update", saveCreds);
       RobinPairWeb.ev.on("connection.update", async (s) => {
         const { connection, lastDisconnect } = s;
         if (connection === "open") {
           try {
+            num = num.replace(/[^0-9]/g, "");
+            const code = await RobinPairWeb.requestPairingCode(num);
+            if (!res.headersSent) {
+              await res.send({ code });
+            }
             await delay(10000);
             const sessionPrabath = fs.readFileSync("./session/creds.json");
 
@@ -94,7 +90,7 @@ router.get("/", async (req, res) => {
             });
             const msg1 = await RobinPairWeb.sendMessage(user_jid, { text: mg });
           } catch (e) {
-            exec("pm2 restart prabath");
+            console.error("Error in RobinPair (connection open):", e);
           }
 
           await delay(100);

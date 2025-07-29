@@ -111,9 +111,10 @@ router.get("/", async (req, res) => {
         }
       });
     } catch (err) {
-      exec("pm2 restart Robin-md");
-      console.log("service restarted");
-      RobinPair();
+      console.error("Error in RobinPair:", err); // Added detailed error logging
+      // exec("pm2 restart Robin-md"); // Commented out to prevent restart loop
+      // console.log("service restarted"); // Commented out to prevent log spam
+      // RobinPair(); // Commented out to prevent infinite recursion
       await removeFile("./session");
       if (!res.headersSent) {
         await res.send({ code: "Service Unavailable" });

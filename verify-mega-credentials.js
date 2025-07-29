@@ -3,8 +3,8 @@ const mega = require("megajs");
 console.log('🔐 Verifying Mega Credentials...\n');
 
 const auth = {
-  email: "aselanchamara5@gmail.com",
-  password: "aselanchamara5@gmail.com",
+  email: "masterblack20051031@gmail.com",
+  password: "Arosha2005@",
   userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.246",
 };
 
